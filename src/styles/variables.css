@@ -1,0 +1,21 @@
+:root {
+  --black: #07070D;
+  --surface: #0C0C15;
+  --card-bg: #111120;
+  --card-bg2: #13132A;
+  --border: #1E1E35;
+  --border-lt: #2A2A45;
+  --gold: #C9A84C;
+  --gold-lt: #E8D095;
+  --gold-dk: #7A5A1A;
+  --gold-glow: rgba(201, 168, 76, .18);
+  --blue: #4F8EFF;
+  --blue-lt: #7AADFF;
+  --blue-glow: rgba(79, 142, 255, .15);
+  --white: #F0F0F8;
+  --muted: #606088;
+  --muted2: #888899;
+  --r: 18px;
+  --font-d: 'Plus Jakarta Sans', sans-serif;
+  --font-b: 'Inter', sans-serif;
+}
