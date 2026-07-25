@@ -1,5 +1,5 @@
 // ── Config ────────────────────────────────────────────────────────────────────
-const API_URL    = 'https://erp-hentechsolutions.lovable.app/api/public/orders';
+const API_URL    = import.meta.env.VITE_ERP_API_URL;
 const API_KEY    = import.meta.env.VITE_API_KEY;
 
 const PLAN_NAMES = {
@@ -39,7 +39,7 @@ function buildPayload(data, orderCode) {
     },
     additionals: {
       quantity:         qty,
-      unit_price:       qty > 0 ? unitPrice : null,
+      unit_price:       qty > 0 ? unitPrice : 0,
       subtotal:         addVal,
       discount_applied: qty >= threshold,
       saving,
@@ -61,7 +61,7 @@ function buildPayload(data, orderCode) {
 export async function submitOrderToApi(validatedData, orderCode) {
   const payload = buildPayload(validatedData, orderCode);
 
-  const response = await fetch(API_URL, {
+  const response = await fetch(API_URL+'/orders', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
