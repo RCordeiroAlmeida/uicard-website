@@ -1,0 +1,172 @@
+/* ─── COMO FUNCIONA ───
+   Fluxo em fio de cabelo: os três passos ficam pendurados numa linha contínua
+   com um ponto dourado cada. Sem caixas, sem borda, sem sombra. */
+#como {
+  background: var(--black);
+}
+
+.usage-head {
+  max-width: 620px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.usage-head .section-eyebrow {
+  justify-content: center;
+}
+
+.usage-sub {
+  margin: 0 auto;
+  margin-bottom: 96px;
+}
+
+.usage-flow {
+  --usage-gap: 56px;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--usage-gap);
+  position: relative;
+}
+
+.usage-step {
+  position: relative;
+  padding-right: 32px;
+}
+
+/* Conector desenhado por passo (não uma régua única no container): assim ele
+   sempre sai do próprio ponto e termina exatamente no ponto seguinte, seja qual
+   for a largura da coluna. */
+.usage-step::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 19px;
+  right: calc(-1 * var(--usage-gap));
+  height: 1px;
+  background: var(--hairline);
+  pointer-events: none;
+}
+
+.usage-step:last-child::before {
+  display: none;
+}
+
+.usage-marker {
+  position: relative;
+  display: block;
+  width: 11px;
+  height: 11px;
+  margin-bottom: 34px;
+}
+
+.usage-dot {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 5px var(--black), 0 0 16px rgba(227, 176, 75, .55);
+}
+
+/* Só o passo "Aproxime" pulsa — é a ação de tocar o cartão no celular. */
+.usage-ripple {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 11px;
+  height: 11px;
+  margin: -5.5px 0 0 -5.5px;
+  border-radius: 50%;
+  border: 1px solid rgba(227, 176, 75, .5);
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .usage-ripple {
+    animation: usageRipple 2.8s ease-out infinite;
+  }
+
+  .usage-ripple--delayed {
+    animation-delay: 1.4s;
+  }
+}
+
+@keyframes usageRipple {
+  0% {
+    transform: scale(1);
+    opacity: .9;
+  }
+
+  100% {
+    transform: scale(4.6);
+    opacity: 0;
+  }
+}
+
+.usage-num {
+  display: block;
+  font-family: var(--font-d);
+  font-size: .78rem;
+  font-weight: 400;
+  letter-spacing: .2em;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.usage-title {
+  font-family: var(--font-d);
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -.02em;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+
+.usage-desc {
+  color: var(--muted2);
+  font-size: .93rem;
+  font-weight: 300;
+  line-height: 1.8;
+  max-width: 330px;
+}
+
+@media (max-width: 860px) {
+  .usage-sub {
+    margin-bottom: 64px;
+  }
+
+  .usage-flow {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-left: 30px;
+  }
+
+  .usage-step {
+    padding: 0 0 44px;
+  }
+
+  .usage-step:last-child {
+    padding-bottom: 0;
+  }
+
+  /* No mobile o conector vira vertical, do próprio ponto até o ponto seguinte. */
+  .usage-step::before {
+    top: 20px;
+    bottom: -6px;
+    left: -25px;
+    right: auto;
+    width: 1px;
+    height: auto;
+  }
+
+  .usage-marker {
+    position: absolute;
+    left: -30px;
+    top: 1px;
+    margin-bottom: 0;
+  }
+
+  .usage-desc {
+    max-width: 520px;
+  }
+}

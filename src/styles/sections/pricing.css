@@ -1,0 +1,359 @@
+/* ─── PLANOS ───
+   Tabela editorial: três colunas separadas por fio de cabelo, sem borda, sem
+   raio e sem sombra. O plano em destaque é marcado por um véu de luz dourada
+   que se dissolve para baixo — nunca por uma caixa. */
+#planos {
+  background: var(--black);
+}
+
+#planos::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--hairline) 50%, transparent);
+}
+
+.pricing-head {
+  max-width: 640px;
+}
+
+.pricing-lede {
+  margin-bottom: 80px;
+}
+
+/* `stretch` (padrão) mantém as três colunas com a mesma altura, então os fios
+   divisores correm inteiros e os botões terminam alinhados. */
+.pricing-table {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: stretch;
+}
+
+.plan {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 34px 0;
+  min-width: 0;
+}
+
+/* Divisor que se dissolve nas duas pontas: um `border-left` sólido, junto com
+   o véu do plano em destaque, fechava um retângulo — exatamente a leitura de
+   card que queremos evitar. */
+.plan + .plan::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4%;
+  bottom: 4%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--hairline-soft) 16%, var(--hairline-soft) 84%, transparent);
+  pointer-events: none;
+}
+
+.plan:first-child {
+  padding-left: 0;
+}
+
+.plan:last-child {
+  padding-right: 0;
+}
+
+/* O conteúdo sobe acima do véu de luz. Empilhar por z-index positivo (em vez
+   de mandar o véu pra -1) evita que ele fique escondido atrás do fundo da
+   seção, já que `.plan` não abre contexto de empilhamento próprio. */
+.plan > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Véu de luz do plano em destaque. Gradiente radial (não linear) porque ele
+   dissolve em TODAS as direções — um linear deixava aresta reta no topo e nas
+   laterais, e a aresta reta é justamente o que faz parecer card. */
+.plan.is-featured::before {
+  content: '';
+  position: absolute;
+  inset: -60px -34px -10px;
+  /* Raios (58%/40%) e centro (50%/38%) escolhidos pra elipse chegar a
+     `transparent` ANTES de qualquer borda da caixa — se ela ainda tiver cor ao
+     encostar na borda, aparece uma aresta reta e o véu vira card de novo. */
+  background: radial-gradient(ellipse 58% 40% at 50% 38%, rgba(227, 176, 75, .13) 0%, rgba(227, 176, 75, .045) 38%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.plan-flag {
+  display: block;
+  font-size: .66rem;
+  font-weight: 500;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+/* Alinha o topo das colunas sem destaque com a que tem a tarja. */
+.plan:not(.is-featured) .plan-name {
+  margin-top: calc(.66rem * 1.65 + 12px);
+}
+
+.plan-name {
+  font-family: var(--font-d);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: .01em;
+  color: var(--white);
+  margin-bottom: 20px;
+}
+
+.plan-price {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0 6px;
+  margin-bottom: 18px;
+}
+
+.plan-currency {
+  font-family: var(--font-d);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--gold);
+}
+
+.plan-amount {
+  font-family: var(--font-d);
+  font-size: 3rem;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -.045em;
+  color: var(--white);
+}
+
+.plan-period {
+  flex-basis: 100%;
+  font-size: .76rem;
+  font-weight: 300;
+  letter-spacing: .06em;
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+.plan-desc {
+  color: var(--muted2);
+  font-size: .9rem;
+  font-weight: 300;
+  line-height: 1.7;
+  padding-bottom: 26px;
+  margin-bottom: 26px;
+  border-bottom: 1px solid var(--hairline-soft);
+}
+
+.plan-items {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 36px;
+  flex: 1;
+}
+
+.plan-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: .89rem;
+  font-weight: 300;
+  line-height: 1.55;
+  color: rgba(251, 246, 236, .82);
+}
+
+.plan-mark {
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: var(--gold);
+}
+
+.plan-mark--off {
+  color: var(--muted);
+  opacity: .55;
+}
+
+.plan-item.is-off {
+  color: var(--muted);
+}
+
+.plan-item.is-muted {
+  color: var(--muted2);
+}
+
+.plan-soon {
+  font-style: normal;
+  font-size: .7rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* ─── BOTÕES DE PLANO ─── */
+.plan-btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 14px 18px;
+  border-radius: 999px;
+  font-family: var(--font-d);
+  font-size: .9rem;
+  font-weight: 600;
+  letter-spacing: .01em;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .25s, color .25s, border-color .25s, box-shadow .3s, transform .3s var(--ease-out);
+  border: 1px solid transparent;
+}
+
+.plan-btn-quiet {
+  background: transparent;
+  border-color: rgba(227, 176, 75, .3);
+  color: var(--gold);
+}
+
+.plan-btn-quiet:hover {
+  border-color: var(--gold);
+  background: rgba(227, 176, 75, .07);
+  transform: translateY(-2px);
+}
+
+.plan-btn-solid {
+  background: var(--gold);
+  color: #17110A;
+  box-shadow: 0 10px 34px rgba(227, 176, 75, .2);
+}
+
+.plan-btn-solid:hover {
+  background: var(--gold-lt);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 46px rgba(227, 176, 75, .32);
+}
+
+/* ─── DESCONTO POR VOLUME ───
+   Faixa entre dois fios, sem fundo e sem borda — lê como uma nota editorial,
+   não como um banner promocional colado por cima. */
+.pricing-bulk {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 56px;
+  margin-top: 84px;
+  padding: 40px 0;
+  border-top: 1px solid var(--hairline-soft);
+  border-bottom: 1px solid var(--hairline-soft);
+}
+
+.bulk-figure {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  white-space: nowrap;
+}
+
+.bulk-from {
+  font-size: .8rem;
+  font-weight: 300;
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.bulk-to {
+  font-family: var(--font-d);
+  font-size: 2.5rem;
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -.04em;
+  color: var(--gold);
+}
+
+.bulk-unit {
+  font-size: .74rem;
+  font-weight: 300;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.bulk-copy {
+  color: var(--muted2);
+  font-size: .92rem;
+  font-weight: 300;
+  line-height: 1.8;
+  max-width: 660px;
+}
+
+.bulk-copy strong {
+  display: block;
+  font-family: var(--font-d);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+@media (max-width: 1024px) {
+  .pricing-table {
+    grid-template-columns: 1fr;
+  }
+
+  .plan {
+    padding: 34px 0;
+  }
+
+  .plan:first-child {
+    padding-top: 0;
+  }
+
+  .plan + .plan::after {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: auto;
+    width: auto;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--hairline-soft) 14%, var(--hairline-soft) 86%, transparent);
+  }
+
+  /* O sangramento lateral fica em -4vw (não -6vw): a seção já tem 5vw de
+     padding, então -6vw empurrava o véu 10px além da viewport e criava
+     overflow horizontal mensurável em 1024px. */
+  .plan.is-featured::before {
+    inset: -10px -4vw;
+    background: radial-gradient(ellipse 58% 40% at 50% 38%, rgba(227, 176, 75, .11) 0%, transparent 70%);
+  }
+
+  .plan:not(.is-featured) .plan-name {
+    margin-top: 0;
+  }
+
+  .plan-items {
+    margin-bottom: 28px;
+  }
+
+  .plan-btn {
+    max-width: 340px;
+  }
+}
+
+@media (max-width: 700px) {
+  .pricing-bulk {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-top: 56px;
+  }
+
+  .plan-btn {
+    max-width: none;
+  }
+}

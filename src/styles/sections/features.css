@@ -1,0 +1,192 @@
+/* ─── FUNCIONALIDADES ───
+   Índice editorial no lugar do bento de cards: a hierarquia vem de tipografia
+   e fios de cabelo, e o destaque é o hover que "acende" a linha inteira. */
+#funcionalidades {
+  background: var(--black);
+}
+
+.feature-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 380px) 1fr;
+  gap: 88px;
+  align-items: start;
+}
+
+.feature-intro {
+  position: sticky;
+  top: 128px;
+}
+
+.feature-intro .section-title {
+  margin-bottom: 20px;
+}
+
+.feature-lede {
+  color: var(--muted2);
+  font-size: .96rem;
+  font-weight: 300;
+  line-height: 1.8;
+  max-width: 360px;
+}
+
+.feature-index {
+  list-style: none;
+  counter-reset: none;
+}
+
+.feature-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 46px 1fr auto;
+  align-items: baseline;
+  gap: 0 28px;
+  padding: 30px 22px 30px 4px;
+  border-top: 1px solid var(--hairline-soft);
+  transition: padding-left .4s var(--ease-out);
+}
+
+.feature-row:last-child {
+  border-bottom: 1px solid var(--hairline-soft);
+}
+
+/* Wash de luz que acende a linha inteira no hover — sangra pras laterais
+   pra não desenhar uma "caixa" com cantos visíveis. */
+.feature-row::before {
+  content: '';
+  position: absolute;
+  inset: 0 -22px;
+  background: linear-gradient(90deg, rgba(227, 176, 75, .07) 0%, rgba(227, 176, 75, .015) 55%, transparent 100%);
+  opacity: 0;
+  transition: opacity .35s var(--ease-out);
+  pointer-events: none;
+}
+
+/* Fio dourado que cresce do topo da linha ativa. */
+.feature-row::after {
+  content: '';
+  position: absolute;
+  left: -22px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--gold);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform .4s var(--ease-out);
+}
+
+.feature-row:hover::before {
+  opacity: 1;
+}
+
+.feature-row:hover::after {
+  transform: scaleY(1);
+}
+
+.feature-row:hover {
+  padding-left: 12px;
+}
+
+.feature-num {
+  position: relative;
+  font-family: var(--font-d);
+  font-size: .8rem;
+  font-weight: 400;
+  letter-spacing: .1em;
+  color: var(--muted);
+  transition: color .3s;
+}
+
+.feature-row:hover .feature-num {
+  color: var(--gold);
+}
+
+.feature-body {
+  position: relative;
+}
+
+.feature-name {
+  font-family: var(--font-d);
+  font-size: 1.22rem;
+  font-weight: 500;
+  letter-spacing: -.015em;
+  color: var(--white);
+  margin-bottom: 9px;
+}
+
+.feature-desc {
+  color: var(--muted2);
+  font-size: .93rem;
+  font-weight: 300;
+  line-height: 1.75;
+  max-width: 560px;
+}
+
+.feature-desc code {
+  font-family: var(--font-b);
+  font-size: .89rem;
+  color: var(--gold);
+  letter-spacing: .01em;
+}
+
+.feature-tag {
+  position: relative;
+  font-size: .68rem;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  white-space: nowrap;
+  opacity: .85;
+}
+
+.feature-row.is-upcoming .feature-name,
+.feature-row.is-upcoming .feature-desc {
+  color: var(--muted);
+}
+
+.feature-row.is-upcoming .feature-tag {
+  color: var(--muted);
+  opacity: 1;
+}
+
+@media (max-width: 1024px) {
+  .feature-layout {
+    grid-template-columns: 1fr;
+    gap: 52px;
+  }
+
+  .feature-intro {
+    position: static;
+  }
+
+  .feature-lede {
+    max-width: 560px;
+  }
+}
+
+@media (max-width: 640px) {
+  .feature-row {
+    grid-template-columns: 34px 1fr;
+    padding: 26px 0 26px 2px;
+    gap: 0 16px;
+  }
+
+  .feature-row::before {
+    inset: 0 -6vw;
+  }
+
+  .feature-row::after {
+    left: -6vw;
+  }
+
+  .feature-tag {
+    grid-column: 2;
+    margin-top: 14px;
+    font-size: .64rem;
+  }
+
+  .feature-name {
+    font-size: 1.08rem;
+  }
+}

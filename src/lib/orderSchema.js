@@ -31,7 +31,7 @@ export const orderSchema = z.object({
     .transform(v => v?.trim() || null),
 
   plano: z.enum(['149', '250', '899'], {
-    errorMap: () => ({ message: 'Selecione um plano válido.' }),
+    error: 'Selecione um plano válido.',
   }),
 
   qty: z

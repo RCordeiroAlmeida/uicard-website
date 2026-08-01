@@ -1,0 +1,120 @@
+/* ─── FAQ ───
+   Accordion em linhas separadas por fio de cabelo; a coluna da esquerda é só
+   texto e um botão, sem a caixa de CTA que existia antes. */
+#faq {
+  background: var(--black);
+}
+
+.faq-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) 1.7fr;
+  gap: 88px;
+  align-items: start;
+}
+
+.faq-sticky {
+  position: sticky;
+  top: 128px;
+}
+
+.faq-title {
+  margin-bottom: 18px;
+}
+
+.faq-lede {
+  color: var(--muted2);
+  font-size: .95rem;
+  font-weight: 300;
+  line-height: 1.8;
+  max-width: 340px;
+  margin-bottom: 34px;
+}
+
+.faq-cta-btn {
+  font-size: .9rem;
+  padding: 14px 28px;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--hairline-soft);
+}
+
+.faq-item:first-child {
+  border-top: 1px solid var(--hairline-soft);
+}
+
+.faq-q {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 26px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  font-family: var(--font-d);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: -.005em;
+  color: var(--white);
+  cursor: pointer;
+  transition: color .2s;
+}
+
+.faq-q:hover {
+  color: var(--gold-lt);
+}
+
+.faq-item.open .faq-q {
+  color: var(--gold);
+}
+
+.faq-chevron {
+  flex-shrink: 0;
+  transition: transform .35s var(--ease-out), color .25s;
+  color: var(--muted);
+}
+
+.faq-item.open .faq-chevron {
+  transform: rotate(180deg);
+  color: var(--gold);
+}
+
+/* A altura de abertura/fechamento é animada via JS (Motion, ver
+   motion-helpers.js) — o CSS só define o estado de repouso (fechado). */
+.faq-a {
+  display: none;
+  height: 0;
+  overflow: hidden;
+  padding: 0;
+  color: var(--muted2);
+  font-size: .93rem;
+  font-weight: 300;
+  line-height: 1.85;
+  max-width: 720px;
+}
+
+.faq-item.open .faq-a {
+  padding: 0 0 26px;
+}
+
+@media (max-width: 900px) {
+  .faq-layout {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .faq-sticky {
+    position: static;
+  }
+
+  .faq-lede {
+    max-width: 560px;
+  }
+}

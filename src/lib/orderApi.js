@@ -1,84 +1,35 @@
-// ── Config ────────────────────────────────────────────────────────────────────
-const API_URL    = import.meta.env.VITE_ERP_API_URL;
-const API_KEY    = import.meta.env.VITE_API_KEY;
+// Client envia só a seleção bruta — nunca preço calculado. O preço é
+// recomputado e validado do zero em api/orders.js, que é quem de fato
+// conhece a chave da API do ERP. Ver api/orders.js.
 
-const PLAN_NAMES = {
-  '149': 'Individual',
-  '250': 'Business',
-  '899': 'Enterprise (10 cartões)',
-};
-
-// ── Monta o payload ───────────────────────────────────────────────────────────
-function buildPayload(data, orderCode) {
-  const { nome, whatsapp, email, empresa, cargo, plano, qty, notes } = data;
-
-  const planVal   = parseInt(plano, 10);
-  const isEnt     = plano === '899';
-  const threshold = isEnt ? 10 : 5;
-  const unitPrice = qty >= threshold ? 25 : 89;
-  const addVal    = qty * unitPrice;
-  const total     = planVal + addVal;
-  const saving    = qty >= threshold ? qty * (89 - 25) : 0;
-
-  return {
-    order: {
-      code:       orderCode,
-      created_at: new Date().toISOString(),
-    },
-    customer: {
-      nome,
-      whatsapp,
-      email,
-      empresa: empresa ?? null,
-      cargo:   cargo   ?? null,
-    },
-    plan: {
-      id:    plano,
-      name:  PLAN_NAMES[plano],
-      price: planVal,
-    },
-    additionals: {
-      quantity:         qty,
-      unit_price:       qty > 0 ? unitPrice : 0,
-      subtotal:         addVal,
-      discount_applied: qty >= threshold,
-      saving,
-    },
-    summary: {
-      total,
-      currency: 'BRL',
-    },
-    notes: notes ?? null,
-  };
-}
-
-// ── Envia pedido para a API ───────────────────────────────────────────────────
 /**
- * @param {import('./orderSchema').OrderFormData} validatedData - dados já validados pelo Zod
+ * @param {object} rawFormData - dados brutos do formulário (mesmo shape esperado por orderSchema
+ *   ANTES do transform — o servidor roda o orderSchema de novo do zero em api/orders.js)
  * @param {string} orderCode - código único do pedido (ex: "UIC-A3F9K2")
- * @returns {Promise<{ ok: boolean; data?: any; error?: string }>}
+ * @returns {Promise<{ ok: boolean; orderCode: string; data?: any }>}
  */
-export async function submitOrderToApi(validatedData, orderCode) {
-  const payload = buildPayload(validatedData, orderCode);
-
-  const response = await fetch(API_URL+'/orders', {
+export async function submitOrderToApi(rawFormData, orderCode) {
+  const response = await fetch('/api/orders', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'x-api-key':    API_KEY,
     },
-    body: JSON.stringify(payload),
+    body: JSON.stringify({ ...rawFormData, orderCode }),
   });
 
-  if (!response.ok) {
-    let message = `Erro HTTP ${response.status}`;
-    try {
-      const errBody = await response.json();
-      message = errBody?.message || errBody?.error || message;
-    } catch { /* ignora parse error */ }
+  let body = null;
+  try {
+    body = await response.json();
+  } catch {
+    /* resposta sem corpo JSON — trata abaixo pelo status */
+  }
+
+  if (!response.ok || !body?.ok) {
+    // A mensagem já vem pré-sanitizada pelo servidor — nunca expõe detalhe
+    // interno do ERP para o usuário final.
+    const message = body?.error || 'Não foi possível enviar seu pedido. Tente novamente.';
     throw new Error(message);
   }
 
-  const responseData = await response.json().catch(() => null);
-  return { ok: true, data: responseData, payload };
+  return body;
 }

@@ -1,0 +1,737 @@
+/* ─── MODAL DE PEDIDO ───
+   Identidade: "monte seu cartão", não "preencha um formulário". Duas colunas —
+   à esquerda o produto sendo montado (pré-visualização ao vivo do cartão), à
+   direita um fluxo de dois passos com cabeçalho e barra de ação fixos. O total
+   e o botão nunca saem da tela. */
+.fmo {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: rgba(3, 3, 4, .88);
+  backdrop-filter: blur(20px) saturate(120%);
+  -webkit-backdrop-filter: blur(20px) saturate(120%);
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.fmo.open {
+  display: flex;
+}
+
+.fmo-panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: 344px minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  width: 100%;
+  max-width: 1000px;
+  max-height: min(92vh, 880px);
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 28px;
+  /* Luz quente entrando pelo canto superior esquerdo (onde fica o cartão) e
+     morrendo no canto oposto — dá volume ao painel sem nenhuma borda extra. */
+  background:
+    radial-gradient(130% 110% at 0% 0%, #17130D 0%, #0C0A08 46%, #070605 100%);
+  border: 1px solid rgba(227, 176, 75, .16);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 250, 240, .05),
+    0 60px 160px rgba(0, 0, 0, .92),
+    0 0 120px rgba(227, 176, 75, .05);
+}
+
+.fmo-panel:focus {
+  outline: none;
+}
+
+/* Halo dourado difuso atrás do conteúdo da coluna esquerda. */
+.fmo-aura {
+  position: absolute;
+  top: -140px;
+  left: -100px;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(227, 176, 75, .13) 0%, transparent 68%);
+  pointer-events: none;
+}
+
+/* ─── COLUNA DO PRODUTO ─── */
+.fmo-aside {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 34px 30px 30px;
+  border-right: 1px solid rgba(227, 176, 75, .09);
+}
+
+.fmo-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.fmo-aside-lede {
+  margin-top: 34px;
+}
+
+.fmo-aside-eyebrow {
+  font-size: .64rem;
+  font-weight: 500;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.fmo-aside-copy {
+  font-size: .82rem;
+  font-weight: 300;
+  line-height: 1.65;
+  color: rgba(163, 154, 140, .65);
+}
+
+/* ─── PRÉ-VISUALIZAÇÃO DO CARTÃO ───
+   Proporção real de cartão (85.6 × 54 mm). O nome e o cargo são escritos ao
+   vivo pelo que o usuário digita no passo 2. */
+.cardp {
+  margin-top: 22px;
+  perspective: 900px;
+}
+
+.cardp-face {
+  position: relative;
+  aspect-ratio: 1.586;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 18px;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid rgba(227, 176, 75, .24);
+  background:
+    linear-gradient(152deg, #1E1913 0%, #100D0A 48%, #070605 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 250, 240, .08),
+    0 26px 50px rgba(0, 0, 0, .6);
+  transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transform-style: preserve-3d;
+  transition: transform .4s var(--ease-out);
+}
+
+/* Reflexo que atravessa o cartão devagar — a única animação em loop do modal. */
+.cardp-sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(104deg,
+      transparent 38%,
+      rgba(255, 250, 240, .05) 46%,
+      rgba(227, 176, 75, .13) 50%,
+      rgba(255, 250, 240, .05) 54%,
+      transparent 62%);
+  background-size: 260% 100%;
+  animation: cardSheen 7s var(--ease-in-out) infinite;
+  pointer-events: none;
+}
+
+@keyframes cardSheen {
+
+  0%,
+  62%,
+  100% {
+    background-position: 150% 0;
+  }
+
+  92% {
+    background-position: -50% 0;
+  }
+}
+
+.cardp-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cardp-mark {
+  display: block;
+  color: var(--gold);
+  filter: drop-shadow(0 0 14px rgba(227, 176, 75, .35));
+}
+
+/* Chip de contato — o detalhe que faz o retângulo ler como cartão. */
+.cardp-chip {
+  width: 30px;
+  height: 22px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  background: linear-gradient(140deg, var(--gold-lt) 0%, var(--gold) 45%, var(--gold-deep) 100%);
+  opacity: .85;
+  position: relative;
+}
+
+.cardp-chip::after {
+  content: '';
+  position: absolute;
+  inset: 4px 7px;
+  border-left: 1px solid rgba(0, 0, 0, .32);
+  border-right: 1px solid rgba(0, 0, 0, .32);
+}
+
+.cardp-bottom {
+  min-width: 0;
+}
+
+.cardp-name {
+  font-family: var(--font-d);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -.02em;
+  color: var(--white);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color .3s;
+}
+
+.cardp-role {
+  margin-top: 4px;
+  font-size: .7rem;
+  font-weight: 400;
+  letter-spacing: .08em;
+  color: rgba(227, 176, 75, .85);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color .3s;
+}
+
+/* Placeholder: mesma diagramação, contraste baixo — o cartão nunca aparece
+   "quebrado" enquanto está vazio. */
+.cardp-name.is-empty,
+.cardp-role.is-empty {
+  color: rgba(163, 154, 140, .28);
+}
+
+.fmo-aside-foot {
+  margin-top: auto;
+  padding-top: 26px;
+}
+
+.fmo-trust {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.fmo-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: .76rem;
+  line-height: 1.4;
+  color: rgba(163, 154, 140, .55);
+}
+
+.fmo-ti-icon {
+  width: 15px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  opacity: .8;
+}
+
+/* ─── COLUNA DO FLUXO ─── */
+.fmo-main {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+
+.fmo-head {
+  flex: 0 0 auto;
+  padding: 26px 36px 20px;
+  border-bottom: 1px solid var(--hairline-soft);
+}
+
+.fmo-head-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.fmo-title {
+  font-family: var(--font-d);
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -.03em;
+  color: var(--white);
+}
+
+.fmo-sub {
+  margin-top: 7px;
+  font-size: .86rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--muted2);
+}
+
+.fmo-close {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  background: rgba(255, 255, 255, .04);
+  border: 1px solid rgba(255, 255, 255, .07);
+  border-radius: 50%;
+  color: var(--muted2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s, color .2s, border-color .2s;
+}
+
+.fmo-close:hover {
+  background: rgba(255, 255, 255, .09);
+  border-color: rgba(255, 255, 255, .14);
+  color: var(--white);
+}
+
+/* ─── STEPPER ─── */
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  list-style: none;
+  min-width: 0;
+}
+
+.stepper-item {
+  display: flex;
+  min-width: 0;
+}
+
+.stepper-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 2px;
+  background: none;
+  border: none;
+  font-family: var(--font-b);
+  font-size: .8rem;
+  font-weight: 500;
+  color: rgba(163, 154, 140, .5);
+  cursor: pointer;
+  transition: color .2s;
+  white-space: nowrap;
+}
+
+.stepper-btn:disabled {
+  cursor: default;
+  opacity: .55;
+}
+
+.stepper-btn:not(:disabled):hover {
+  color: var(--muted2);
+}
+
+.stepper-dot {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, .13);
+  font-size: .7rem;
+  font-weight: 600;
+  line-height: 1;
+  transition: background .25s var(--ease-out), border-color .25s, color .25s, box-shadow .25s;
+}
+
+.stepper-btn.is-active {
+  color: var(--white);
+}
+
+.stepper-btn.is-active .stepper-dot {
+  border-color: var(--gold);
+  background: var(--gold-glow);
+  color: var(--gold);
+  box-shadow: 0 0 0 4px var(--gold-glow-soft);
+}
+
+.stepper-btn.is-done {
+  color: var(--muted2);
+}
+
+.stepper-btn.is-done .stepper-dot {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #17110A;
+}
+
+.stepper-tick {
+  display: none;
+}
+
+.stepper-btn.is-done .stepper-tick {
+  display: block;
+}
+
+.stepper-btn.is-done .stepper-num {
+  display: none;
+}
+
+.stepper-line {
+  flex: 1 1 auto;
+  max-width: 60px;
+  min-width: 20px;
+  height: 1px;
+  background: rgba(255, 255, 255, .1);
+  overflow: hidden;
+}
+
+.stepper-line i {
+  display: block;
+  height: 100%;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .45s var(--ease-out);
+}
+
+/* ─── CORPO ROLÁVEL ─── */
+.fmo-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: 26px 36px 30px;
+  scroll-padding-block: 24px;
+}
+
+.fmo-step:focus {
+  outline: none;
+}
+
+.fmo-step[hidden] {
+  display: none;
+}
+
+/* ─── BARRA DE AÇÃO ─── */
+.fmo-foot {
+  flex: 0 0 auto;
+  padding: 16px 36px 20px;
+  border-top: 1px solid var(--hairline-soft);
+  background: linear-gradient(180deg, rgba(7, 6, 5, .55) 0%, rgba(7, 6, 5, .96) 48%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.fmo-foot-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
+  padding: 12px 16px;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, .09);
+  border-radius: 999px;
+  color: var(--muted2);
+  font-family: var(--font-b);
+  font-size: .85rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: border-color .2s, color .2s, background .2s;
+}
+
+.btn-back:hover {
+  border-color: rgba(227, 176, 75, .35);
+  color: var(--gold-lt);
+  background: var(--gold-glow-soft);
+}
+
+.btn-back[hidden] {
+  display: none;
+}
+
+.fmo-foot-total {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  margin-right: auto;
+}
+
+.fmo-foot-total-label {
+  font-size: .63rem;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(163, 154, 140, .45);
+}
+
+.fmo-foot-total-val {
+  font-family: var(--font-d);
+  font-size: 1.38rem;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -.035em;
+  color: var(--gold);
+}
+
+.fmo-foot-total-val.is-empty {
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: rgba(163, 154, 140, .4);
+}
+
+.fmo-foot .submit-btn {
+  width: auto;
+  min-width: 200px;
+  flex-shrink: 0;
+}
+
+/* Alerta de envio — só aparece quando há algo a corrigir ou reportar. */
+.fmo-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin-bottom: 14px;
+  padding: 11px 14px;
+  border: 1px solid rgba(239, 68, 68, .28);
+  background: rgba(239, 68, 68, .09);
+  border-radius: var(--r-sm);
+  color: #F8A7A7;
+  font-size: .78rem;
+  line-height: 1.5;
+  animation: fmoAlertIn .22s var(--ease-out);
+}
+
+.fmo-alert[hidden] {
+  display: none;
+}
+
+.fmo-alert svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+@keyframes fmoAlertIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── TABLET: o cartão vira uma faixa horizontal no topo ─── */
+@media (max-width: 980px) {
+  .fmo {
+    padding: 18px;
+  }
+
+  .fmo-panel {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    max-width: 640px;
+    max-height: calc(100vh - 36px);
+    max-height: calc(100dvh - 36px);
+    border-radius: 24px;
+  }
+
+  .fmo-aside {
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    padding: 18px 26px;
+    border-right: none;
+    border-bottom: 1px solid var(--hairline-soft);
+  }
+
+  .fmo-brand,
+  .fmo-aside-eyebrow,
+  .fmo-aside-foot {
+    display: none;
+  }
+
+  .fmo-aside-lede {
+    margin-top: 0;
+    order: 2;
+  }
+
+  .fmo-aside-copy {
+    font-size: .78rem;
+  }
+
+  .cardp {
+    margin-top: 0;
+    order: 1;
+    width: 168px;
+    flex-shrink: 0;
+  }
+
+  .fmo-head {
+    padding: 20px 26px 18px;
+  }
+
+  .fmo-head-top {
+    margin-bottom: 18px;
+  }
+
+  .fmo-body {
+    padding: 22px 26px 26px;
+  }
+
+  .fmo-foot {
+    padding: 14px 26px 18px;
+  }
+}
+
+/* ─── CELULAR: folha de baixo pra cima ───
+   Aqui a pré-visualização sai de cena: com o teclado aberto, cada pixel de
+   altura vale mais que a decoração. */
+@media (max-width: 640px) {
+  .fmo {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .fmo-panel {
+    grid-template-rows: minmax(0, 1fr);
+    max-width: none;
+    height: 96vh;
+    height: 96dvh;
+    max-height: 96dvh;
+    border-radius: 24px 24px 0 0;
+    border-bottom: none;
+  }
+
+  .fmo-aside {
+    display: none;
+  }
+
+  .fmo-head {
+    padding: 18px 20px 16px;
+  }
+
+  .fmo-title {
+    font-size: 1.25rem;
+  }
+
+  .fmo-sub {
+    font-size: .82rem;
+  }
+
+  .stepper-label {
+    display: none;
+  }
+
+  .stepper-btn.is-active .stepper-label {
+    display: inline;
+  }
+
+  .fmo-body {
+    padding: 20px 20px 24px;
+  }
+
+  .fmo-foot {
+    padding: 14px 20px calc(16px + env(safe-area-inset-bottom));
+  }
+
+  /* Total numa linha própria e botão em largura total, na zona do polegar. */
+  .fmo-foot-row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px 12px;
+  }
+
+  .fmo-foot-total {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-right: 0;
+  }
+
+  .fmo-foot-total-val {
+    font-size: 1.25rem;
+  }
+
+  .btn-back {
+    grid-column: 1;
+    padding: 14px 16px;
+  }
+
+  .fmo-foot .submit-btn {
+    grid-column: 2;
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Sem o botão Voltar (passo 1), o CTA ocupa a linha inteira. */
+  .fmo[data-step="1"] .fmo-foot .submit-btn {
+    grid-column: 1 / -1;
+  }
+
+  .submit-note {
+    margin-top: 9px;
+    font-size: .68rem;
+  }
+}
+
+/* Telas baixas (celular deitado): o cabeçalho encolhe pra sobrar corpo. */
+@media (max-height: 560px) and (max-width: 980px) {
+  .fmo-sub {
+    display: none;
+  }
+
+  .fmo-head {
+    padding-top: 14px;
+    padding-bottom: 12px;
+  }
+
+  .fmo-head-top {
+    margin-bottom: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .cardp-sheen {
+    animation: none;
+  }
+
+  .cardp-face,
+  .stepper-line i,
+  .fmo-alert {
+    transition: none;
+    animation: none;
+  }
+}

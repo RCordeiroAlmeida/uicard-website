@@ -1,0 +1,81 @@
+/* ─── COMO PEDIR ───
+   Numerais grandes e vazados apoiados num fio de cabelo. Sem círculo, sem
+   caixa de ícone, sem cartão — o número é o próprio elemento gráfico. */
+#pedido {
+  background: var(--surface);
+}
+
+#pedido::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--hairline) 50%, transparent);
+}
+
+.order-flow {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 44px;
+}
+
+.order-step {
+  min-width: 0;
+}
+
+.order-num {
+  display: block;
+  font-family: var(--font-d);
+  font-size: clamp(2.6rem, 4.2vw, 3.6rem);
+  font-weight: 200;
+  line-height: 1;
+  letter-spacing: -.04em;
+  color: rgba(227, 176, 75, .32);
+  padding-bottom: 22px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--hairline-soft);
+  transition: color .35s var(--ease-out), border-color .35s var(--ease-out);
+}
+
+.order-step:hover .order-num {
+  color: var(--gold);
+  border-bottom-color: var(--hairline);
+}
+
+.order-title {
+  font-family: var(--font-d);
+  font-size: 1.08rem;
+  font-weight: 500;
+  letter-spacing: -.01em;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+
+.order-desc {
+  color: var(--muted2);
+  font-size: .9rem;
+  font-weight: 300;
+  line-height: 1.78;
+}
+
+@media (max-width: 1024px) {
+  .order-flow {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 48px 40px;
+  }
+}
+
+@media (max-width: 560px) {
+  .order-flow {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .order-num {
+    padding-bottom: 16px;
+    margin-bottom: 18px;
+  }
+}

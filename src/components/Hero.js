@@ -1,179 +1,150 @@
+import { gsap, prefersReducedMotion } from '../lib/animations.js';
+import { pressable } from '../lib/motion-helpers.js';
+import { openFormModal } from '../lib/formModalController.js';
+import { logoMarkSVG } from '../lib/logo.js';
+
+const FACTS = [
+  '3 segundos para compartilhar',
+  'Nenhum aplicativo para instalar',
+  'Funciona em qualquer celular',
+];
+
 export function createHero() {
+  const factsHtml = FACTS
+    .map(f => `<li class="hero-fact">${f}</li>`)
+    .join('');
+
   return `
     <section id="hero">
-      <canvas id="particles-canvas"></canvas>
+      <div class="hero-dawn" aria-hidden="true"></div>
 
-      <div class="hero-left">
-        <div class="eyebrow">
-          <div class="eyebrow-dot"></div>
-          Tecnologia NFC &middot; Identidade Digital Premium
-        </div>
-        <h1>
-          Um toque.<br>
-          Uma <span class="accent">impressão</span><br>
-          <span class="underline-word">inesquecível.</span>
-        </h1>
-        <p class="hero-sub">
-          Cartão NFC impresso com site e identidade digital integrada. Compartilhe seus dados com qualquer smartphone —
-          sem app, sem papel, sem complicação.
+      <div class="hero-inner">
+        <p class="hero-greet hero-rise">
+          <span class="hero-greet-dot" aria-hidden="true"></span>
+          Prazer, somos a UICard
         </p>
-        <div class="hero-btns">
-          <a href="#" onclick="openFmo();return false;" class="btn-primary">
+
+        <h1 class="hero-title">
+          <span class="hero-line hero-rise">Apresente-se</span>
+          <span class="hero-line hero-rise">com <span class="text-gold-gradient">um toque</span>.</span>
+        </h1>
+
+        <p class="hero-sub hero-rise">
+          Um cartão NFC feito com cuidado que abre o seu site de apresentação no celular de quem você
+          acabou de conhecer. Sem app, sem papel, sem digitar nada.
+        </p>
+
+        <div class="hero-actions hero-rise">
+          <a href="#" class="btn-primary" id="hero-cta-primary">
             Quero meu UICard
             <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="2.5" stroke-linecap="round">
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </a>
-          <a href="#planos" class="btn-ghost">Ver planos e preços</a>
+          <a href="#como" class="btn-ghost">Ver como funciona</a>
         </div>
-        <div class="hero-trust">
-          <div class="trust-item">
-            <div>
-              <div class="trust-num">3s</div>
-              <div class="trust-label">Para<br>compartilhar</div>
-            </div>
-          </div>
 
-          <div style="width:1px;background:rgba(255,255,255,.06);"></div>
-          <div class="trust-item">
-            <div>
-              <div class="trust-num">0</div>
-              <div class="trust-label">Apps<br>necessários</div>
-            </div>
-          </div>
-          <div style="width:1px;background:rgba(255,255,255,.06);"></div>
-          <div class="trust-item">
-            <div>
-              <div class="trust-num">100%</div>
-              <div class="trust-label">Sem<br>papel</div>
+        <ul class="hero-facts hero-rise">
+          ${factsHtml}
+        </ul>
+
+        <div class="card-stage hero-stage">
+          <div class="hero-scene-mount" id="hero-scene-mount" aria-hidden="true"></div>
+          <div class="hero-card-static" id="hero-card-fallback" aria-hidden="true">
+            <div class="hero-card-face">
+              <span class="hero-card-mark">${logoMarkSVG(58)}</span>
+              <span class="hero-card-word">UICARD</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="hero-right">
-        <div class="card-scene">
-          <div class="card-3d" id="hero-card">
-            <div class="card-face">
-              <div class="card-holo"></div>
-              <div class="card-top">
-                <div class="chip"></div>
-                <div class="card-brand">
-                  <div class="nfc-waves">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                      <path d="M20 12a8 8 0 0 0-8-8" stroke="#4F8EFF" stroke-width="1.8" stroke-linecap="round"
-                        opacity=".4" />
-                      <path d="M17 12a5 5 0 0 0-5-5" stroke="#4F8EFF" stroke-width="1.8" stroke-linecap="round"
-                        opacity=".65" />
-                      <path d="M14 12a2 2 0 0 0-2-2" stroke="#4F8EFF" stroke-width="1.8" stroke-linecap="round"
-                        opacity=".9" />
-                      <circle cx="12" cy="12" r="1" fill="#4F8EFF" />
-                    </svg>
-                  </div>
-                  <div class="card-brand-text">UICARD</div>
-                </div>
-              </div>
-              <div class="card-mid">
-                <div class="card-mid-line"></div>
-              </div>
-              <div class="card-bottom">
-                <div class="card-name-block">
-                  <div class="card-holder-name">JOÃO MENDES</div>
-                  <div class="card-holder-role">Diretor Comercial · UICard</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card-shadow"></div>
-          <div class="card-tag-float">
-            <div class="tag-dot"></div>
-            Cartão ativo e pronto para uso
-          </div>
-        </div>
-      </div>
+      <a href="#produto" class="hero-scroll" aria-label="Rolar para conhecer o produto">
+        <span>Conheça o produto</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 5v14M5 12l7 7 7-7" />
+        </svg>
+      </a>
     </section>
   `;
 }
 
+function supportsWebGL() {
+  try {
+    const canvas = document.createElement('canvas');
+    return !!(window.WebGLRenderingContext
+      && (canvas.getContext('webgl2') || canvas.getContext('webgl')));
+  } catch {
+    return false;
+  }
+}
+
+async function mountScene() {
+  const mount = document.getElementById('hero-scene-mount');
+  const fallback = document.getElementById('hero-card-fallback');
+  if (!mount) return;
+
+  // Sob reduced-motion ou sem WebGL, o cartão estático em CSS (já visível
+  // por padrão) é o resultado final — nem carregamos o módulo do three.js.
+  if (prefersReducedMotion() || !supportsWebGL()) return;
+
+  try {
+    const { mountHeroScene } = await import('../three/heroScene.js');
+    const scene = mountHeroScene(mount);
+    if (!scene) return; // contexto WebGL falhou ao criar — mantém o fallback
+
+    if (fallback) fallback.style.display = 'none';
+    requestAnimationFrame(() => scene.reveal());
+  } catch (err) {
+    console.error('[Hero] Não foi possível carregar a cena 3D, mantendo o cartão estático:', err);
+  }
+}
+
+function deferMountScene() {
+  const run = () => mountScene();
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(run, { timeout: 2000 });
+  } else {
+    window.addEventListener('load', run, { once: true });
+  }
+}
+
 export function initHero() {
-  // Particles
-  const canvas = document.getElementById('particles-canvas');
-  if (!canvas) return;
-  
-  const ctx = canvas.getContext('2d');
-  let W, H, particles = [];
+  const section = document.getElementById('hero');
+  if (!section) return;
 
-  function resize() {
-    const hero = document.getElementById('hero');
-    if (!hero) return;
-    W = canvas.width = hero.offsetWidth;
-    H = canvas.height = hero.offsetHeight;
-  }
-
-  function rand(min, max) { 
-    return Math.random() * (max - min) + min; 
-  }
-
-  function init() {
-    particles = [];
-    const count = Math.floor(W / 22);
-    for (let i = 0; i < count; i++) {
-      particles.push({
-        x: rand(0, W), y: rand(0, H),
-        r: rand(0.4, 1.6),
-        vx: rand(-0.15, 0.15),
-        vy: rand(-0.08, -0.3),
-        alpha: rand(0.1, 0.45),
-        gold: Math.random() > 0.65
-      });
-    }
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-    particles.forEach(p => {
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = p.gold
-        ? `rgba(201,168,76,${p.alpha})`
-        : `rgba(79,142,255,${p.alpha})`;
-      ctx.fill();
-
-      p.x += p.vx; p.y += p.vy;
-      if (p.y < -4) { p.y = H + 4; p.x = rand(0, W); }
-      if (p.x < -4) p.x = W + 4;
-      if (p.x > W + 4) p.x = -4;
+  const primaryCta = document.getElementById('hero-cta-primary');
+  if (primaryCta) {
+    primaryCta.addEventListener('click', e => {
+      e.preventDefault();
+      openFormModal();
     });
-    requestAnimationFrame(draw);
+    pressable(primaryCta);
   }
 
-  resize(); 
-  init(); 
-  draw();
-  
-  window.addEventListener('resize', () => { 
-    resize(); 
-    init(); 
-  });
+  const ghostCta = section.querySelector('.hero-actions .btn-ghost');
+  if (ghostCta) pressable(ghostCta);
 
-  // Card 3D Mouse Tilt
-  const card = document.getElementById('hero-card');
-  if (!card) return;
-  
-  const parent = card.parentElement;
-  parent.addEventListener('mousemove', e => {
-    const rect = parent.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    const dx = (e.clientX - cx) / (rect.width / 2);
-    const dy = (e.clientY - cy) / (rect.height / 2);
-    card.style.transform = `rotateY(${dx * 18 - 10}deg) rotateX(${-dy * 10 + 4}deg) scale(1.04)`;
-    card.style.transition = 'transform .1s ease';
-  });
-  parent.addEventListener('mouseleave', () => {
-    card.style.transform = '';
-    card.style.transition = 'transform .6s cubic-bezier(.22,1,.36,1)';
-    setTimeout(() => { card.style.transition = ''; }, 600);
-  });
+  const rise = section.querySelectorAll('.hero-rise');
+  const stage = section.querySelector('.hero-stage');
+  const scrollHint = section.querySelector('.hero-scroll');
+
+  if (prefersReducedMotion()) {
+    gsap.set([...rise, stage, scrollHint], { clearProps: 'opacity,transform' });
+    deferMountScene();
+    return;
+  }
+
+  gsap.set(rise, { opacity: 0, y: 22 });
+  gsap.set(stage, { opacity: 0, y: 46 });
+  gsap.set(scrollHint, { opacity: 0 });
+
+  gsap.timeline({ defaults: { ease: 'power3.out' } })
+    .to(rise, { opacity: 1, y: 0, duration: 0.85, stagger: 0.09 })
+    .to(stage, { opacity: 1, y: 0, duration: 1.1 }, '-=0.55')
+    .to(scrollHint, { opacity: 1, duration: 0.6 }, '-=0.3');
+
+  deferMountScene();
 }

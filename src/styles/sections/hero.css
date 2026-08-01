@@ -1,0 +1,278 @@
+/* ─── HERO ───
+   Composição centrada e convidativa: saudação → título → explicação → ação →
+   produto. O cartão fica embaixo, grande e iluminado por baixo, como um objeto
+   apresentado — não como um "print" empurrado pro canto da tela. */
+#hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 132px 5vw 104px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Luz quente subindo do chão — é o que tira a frieza do preto puro. */
+.hero-dawn {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(58% 44% at 50% 82%, rgba(227, 176, 75, .17) 0%, transparent 68%),
+    radial-gradient(44% 32% at 50% 4%, rgba(227, 176, 75, .06) 0%, transparent 70%);
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-greet {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: .82rem;
+  font-weight: 400;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted2);
+  margin-bottom: 26px;
+}
+
+.hero-greet-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 10px rgba(227, 176, 75, .8);
+  flex-shrink: 0;
+}
+
+.hero-title {
+  font-family: var(--font-d);
+  font-size: clamp(2.5rem, 5.6vw, 4.2rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -.035em;
+  color: var(--white);
+  margin-bottom: 26px;
+}
+
+.hero-line {
+  display: block;
+}
+
+.hero-sub {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: var(--muted2);
+  max-width: 590px;
+  line-height: 1.75;
+  margin-bottom: 38px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-facts {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 20px;
+  margin-top: 34px;
+}
+
+.hero-fact {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: .82rem;
+  font-weight: 300;
+  color: var(--muted);
+}
+
+.hero-fact + .hero-fact::before {
+  content: '';
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: .5;
+  flex-shrink: 0;
+}
+
+/* ─── PALCO DO CARTÃO (cena 3D + fallback estático em CSS) ─── */
+.card-stage {
+  position: relative;
+  width: min(520px, 76vw);
+  aspect-ratio: 8 / 5;
+  margin-top: 52px;
+  perspective: 1100px;
+}
+
+/* Luz de apoio no "chão" do cartão. */
+.card-stage::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -6%;
+  transform: translateX(-50%);
+  width: 78%;
+  height: 26%;
+  background: radial-gradient(ellipse, rgba(227, 176, 75, .22) 0%, transparent 70%);
+  filter: blur(14px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-scene-mount,
+.hero-card-static {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.hero-scene-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hero-card-static {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+}
+
+/* Réplica fiel do produto: cartão preto, marca dourada centrada. */
+.hero-card-face {
+  width: 76%;
+  aspect-ratio: 85.6 / 54;
+  border-radius: 18px;
+  background:
+    radial-gradient(120% 90% at 22% 8%, rgba(227, 176, 75, .07) 0%, transparent 55%),
+    linear-gradient(152deg, #16130F 0%, #070605 52%, #12100C 100%);
+  border: 1px solid rgba(227, 176, 75, .2);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, .03) inset,
+    0 46px 100px rgba(0, 0, 0, .8),
+    0 0 90px rgba(227, 176, 75, .1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  transform: rotateX(7deg) rotateY(-13deg);
+}
+
+.hero-card-mark {
+  display: flex;
+  color: var(--gold);
+  filter: drop-shadow(0 0 18px rgba(227, 176, 75, .35));
+}
+
+.hero-card-word {
+  font-family: var(--font-d);
+  font-size: .78rem;
+  font-weight: 400;
+  letter-spacing: .42em;
+  margin-right: -.42em;
+  color: var(--gold);
+  line-height: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-card-static {
+    animation: floatY 6s ease-in-out infinite;
+  }
+
+  .hero-greet-dot {
+    animation: pulse 2.4s infinite;
+  }
+}
+
+/* ─── CONVITE PRA ROLAR ─── */
+.hero-scroll {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: .72rem;
+  font-weight: 300;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color .25s;
+}
+
+.hero-scroll:hover {
+  color: var(--gold);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-scroll svg {
+    animation: floatY 2.6s ease-in-out infinite;
+  }
+}
+
+@media (max-width: 900px) {
+  #hero {
+    padding: 116px 6vw 92px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .card-stage {
+    width: min(440px, 86vw);
+    margin-top: 44px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-greet {
+    font-size: .72rem;
+    letter-spacing: .12em;
+  }
+
+  .hero-sub {
+    font-size: .98rem;
+  }
+
+  .hero-facts {
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .hero-fact + .hero-fact::before {
+    display: none;
+  }
+
+  .hero-fact {
+    gap: 0;
+  }
+}

@@ -1,13 +1,16 @@
+import { logoLockup } from '../lib/logo.js';
+
 export function createFooter() {
   return `
-    <footer>
+    <footer class="site-footer">
       <div class="footer-grid">
         <div class="footer-brand">
-          <span class="footer-logo">UI<span>CARD</span></span>
+          <div class="footer-logo">${logoLockup({ size: 24 })}</div>
           <p class="footer-tagline">Cartão NFC premium com identidade digital integrada. Um toque, uma conexão inesquecível.</p>
         </div>
         <div class="footer-col">
           <h5>Produto</h5>
+          <a href="#produto">O produto</a>
           <a href="#como">Como funciona</a>
           <a href="#funcionalidades">Funcionalidades</a>
           <a href="#planos">Planos</a>
@@ -16,13 +19,18 @@ export function createFooter() {
         <div class="footer-col">
           <h5>Suporte</h5>
           <a href="#faq">FAQ</a>
+          <!-- TODO(real-link): trocar por número de WhatsApp real (wa.me/55...) -->
           <a href="#">WhatsApp</a>
+          <!-- TODO(real-link): trocar por e-mail de contato real (mailto:) -->
           <a href="#">E-mail</a>
         </div>
         <div class="footer-col">
           <h5>Legal</h5>
+          <!-- TODO(real-link): página de política de privacidade -->
           <a href="#">Privacidade</a>
+          <!-- TODO(real-link): página de termos de uso -->
           <a href="#">Termos de uso</a>
+          <!-- TODO(real-link): página de política de entrega -->
           <a href="#">Política de entrega</a>
         </div>
       </div>
@@ -55,5 +63,5 @@ export function createFooter() {
 }
 
 export function initFooter() {
-  // No special initialization needed
+  // Sem interatividade própria — só âncoras internas e links a preencher.
 }

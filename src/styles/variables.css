@@ -1,21 +1,56 @@
 :root {
-  --black: #07070D;
-  --surface: #0C0C15;
-  --card-bg: #111120;
-  --card-bg2: #13132A;
-  --border: #1E1E35;
-  --border-lt: #2A2A45;
-  --gold: #C9A84C;
-  --gold-lt: #E8D095;
-  --gold-dk: #7A5A1A;
-  --gold-glow: rgba(201, 168, 76, .18);
-  --blue: #4F8EFF;
-  --blue-lt: #7AADFF;
-  --blue-glow: rgba(79, 142, 255, .15);
-  --white: #F0F0F8;
-  --muted: #606088;
-  --muted2: #888899;
+  /* ─── Superfícies ─────────────────────────────────────────────────────────
+     Base preta (como o fundo da logo oficial), mas com um leve viés quente nos
+     níveis acima do preto puro — é o que tira a frieza clínica do #0A0A0D e faz
+     o site ler como acolhedor sem sair de "preto + dourado". */
+  --black: #050403;
+  --surface: #0B0908;
+  --raised: #12100D;
+  --border: #1E1A15;
+  --border-lt: #2C261E;
+  --hairline: rgba(227, 176, 75, .14);
+  --hairline-soft: rgba(255, 250, 240, .07);
+
+  /* ─── Dourado (amostrado da logo oficial — identidade única, sem accent
+         secundário) ─── */
+  --gold: #E3B04B;
+  --gold-rgb: 227, 176, 75;
+  --gold-lt: #F7DC9C;
+  --gold-dk: #B8862C;
+  --gold-deep: #8A6420;
+  --gold-glow: rgba(227, 176, 75, .18);
+  --gold-glow-soft: rgba(227, 176, 75, .07);
+
+  /* ─── Texto (brancos quentes: creme em vez de branco-azulado) ─── */
+  --white: #FBF6EC;
+  --muted: #7A7267;
+  --muted2: #A39A8C;
+
+  /* ─── Estado (sem depender de accent de marca) ─── */
+  --success: #7CC79B;
+
+  /* ─── Forma ─── */
+  --r-sm: 10px;
   --r: 18px;
+  --r-lg: 28px;
+
+  /* ─── Espaçamento ─── */
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 48px;
+  --space-xl: 80px;
+  --space-2xl: 120px;
+
+  /* ─── Easing compartilhado (GSAP/Motion usam os mesmos valores em JS) ─── */
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+  --ease-in-out: cubic-bezier(.65, 0, .35, 1);
+
+  /* ─── Camadas ─── */
+  --z-nav: 100;
+  --z-modal: 200;
+
+  /* ─── Tipografia ─── */
   --font-d: 'Plus Jakarta Sans', sans-serif;
   --font-b: 'Inter', sans-serif;
 }

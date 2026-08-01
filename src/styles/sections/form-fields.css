@@ -1,0 +1,710 @@
+/* ─── CAMPOS DO FORMULÁRIO ───
+   Rótulos em caixa alta e baixa (não versalete espaçado como no resto do
+   site): dentro do modal o que importa é ler rápido, não o tom editorial. */
+.fg {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.fg-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+/* Dentro de uma linha o respiro vem do `gap`, não da margem de cada campo. */
+.fg-row .fg {
+  margin-bottom: 0;
+}
+
+.fmo-step > *:last-child {
+  margin-bottom: 0;
+}
+
+.fg > label,
+.fg > .fg-label {
+  display: block;
+  font-size: .82rem;
+  font-weight: 500;
+  letter-spacing: -.005em;
+  color: rgba(251, 246, 236, .72);
+  margin-bottom: 9px;
+}
+
+.fg-req {
+  color: var(--gold);
+  margin-left: 1px;
+}
+
+.fg-opt {
+  margin-left: 5px;
+  font-size: .74rem;
+  font-weight: 400;
+  color: rgba(163, 154, 140, .4);
+}
+
+.fg > input,
+.fg > select,
+.fg > textarea {
+  width: 100%;
+  min-height: 50px;
+  background: rgba(255, 255, 255, .022);
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 14px;
+  padding: 14px 16px;
+  color: var(--white);
+  font-family: var(--font-b);
+  font-size: .93rem;
+  line-height: 1.4;
+  outline: none;
+  transition: border-color .2s, background .2s, box-shadow .2s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.fg > input:hover:not(:focus),
+.fg > textarea:hover:not(:focus) {
+  border-color: rgba(255, 255, 255, .15);
+  background: rgba(255, 255, 255, .035);
+}
+
+.fg > input:focus,
+.fg > select:focus,
+.fg > textarea:focus {
+  background: rgba(227, 176, 75, .05);
+  border-color: rgba(227, 176, 75, .5);
+  box-shadow: 0 0 0 4px rgba(227, 176, 75, .1);
+}
+
+.fg > input::placeholder,
+.fg > textarea::placeholder {
+  color: rgba(163, 154, 140, .3);
+}
+
+/* Autofill do Chrome pinta o campo de azul-claro — devolve o campo ao tema. */
+.fg > input:-webkit-autofill,
+.fg > input:-webkit-autofill:hover,
+.fg > input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--white);
+  -webkit-box-shadow: 0 0 0 1000px #15120E inset;
+  caret-color: var(--white);
+}
+
+.fg > textarea {
+  resize: vertical;
+  min-height: 88px;
+  max-height: 220px;
+}
+
+.fg-count {
+  display: block;
+  margin-top: 6px;
+  text-align: right;
+  font-size: .7rem;
+  font-variant-numeric: tabular-nums;
+  color: rgba(163, 154, 140, .3);
+}
+
+/* ─── SELETOR DE PLANO ───
+   Três linhas selecionáveis no lugar do <select>: preço visível sem abrir
+   nada e alvo de toque na linha inteira. */
+.plan-picker {
+  display: grid;
+  gap: 10px;
+}
+
+.popt {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding: 15px 18px;
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .02);
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color .22s var(--ease-out), background .22s var(--ease-out), box-shadow .28s var(--ease-out);
+}
+
+/* Barra de luz que acende na borda esquerda do plano escolhido. */
+.popt::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12%;
+  bottom: 12%;
+  width: 2px;
+  border-radius: 0 2px 2px 0;
+  background: linear-gradient(180deg, var(--gold-lt), var(--gold-dk));
+  transform: scaleY(0);
+  transform-origin: center;
+  transition: transform .3s var(--ease-out);
+}
+
+/* O rádio continua no DOM (teclado, setas, leitor de tela) — só sai de vista. */
+.popt input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.popt:hover {
+  border-color: rgba(227, 176, 75, .3);
+  background: rgba(227, 176, 75, .04);
+}
+
+.popt.is-selected,
+.popt:has(input:checked) {
+  border-color: rgba(227, 176, 75, .55);
+  background: linear-gradient(100deg, rgba(227, 176, 75, .1) 0%, rgba(227, 176, 75, .03) 60%);
+  box-shadow: 0 0 0 1px rgba(227, 176, 75, .16), 0 14px 34px rgba(0, 0, 0, .35);
+}
+
+.popt.is-selected::before,
+.popt:has(input:checked)::before {
+  transform: scaleY(1);
+}
+
+.popt:has(input:focus-visible) {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.popt-check {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, .18);
+  color: #17110A;
+  transition: background .22s var(--ease-out), border-color .22s;
+}
+
+.popt-check svg {
+  transform: scale(0);
+  transition: transform .24s var(--ease-out);
+}
+
+.popt.is-selected .popt-check,
+.popt:has(input:checked) .popt-check {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+.popt.is-selected .popt-check svg,
+.popt:has(input:checked) .popt-check svg {
+  transform: scale(1);
+}
+
+.popt-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.popt-name {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-family: var(--font-d);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -.01em;
+  color: var(--white);
+}
+
+.popt-badge {
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(227, 176, 75, .3);
+  background: var(--gold-glow-soft);
+  font-family: var(--font-b);
+  font-size: .58rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+.popt-meta {
+  font-size: .74rem;
+  font-weight: 300;
+  line-height: 1.45;
+  color: rgba(163, 154, 140, .58);
+}
+
+.popt-price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.popt-price em {
+  font-family: var(--font-d);
+  font-size: 1.15rem;
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: -.03em;
+  color: var(--gold);
+}
+
+.popt-price small {
+  font-size: .64rem;
+  font-weight: 300;
+  letter-spacing: .06em;
+  color: rgba(163, 154, 140, .4);
+}
+
+/* ─── QUANTIDADE ─── */
+.qty-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.qty-wrap {
+  display: flex;
+  align-items: stretch;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, .022);
+}
+
+.qty-btn {
+  width: 46px;
+  min-height: 48px;
+  background: none;
+  border: none;
+  color: var(--gold);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .15s, color .15s;
+}
+
+.qty-btn:hover:not(:disabled) {
+  background: var(--gold-glow);
+}
+
+.qty-btn:disabled {
+  color: rgba(163, 154, 140, .28);
+  cursor: not-allowed;
+}
+
+.qty-display {
+  min-width: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: 1px solid rgba(255, 255, 255, .06);
+  border-right: 1px solid rgba(255, 255, 255, .06);
+  font-family: var(--font-d);
+  font-size: 1.02rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--white);
+}
+
+/* Atalhos de volume: pedido de 10 cartões não deveria custar 10 cliques. */
+.qty-chips {
+  display: flex;
+  gap: 8px;
+}
+
+.qty-chip {
+  min-width: 44px;
+  min-height: 38px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, .08);
+  background: none;
+  color: var(--muted2);
+  font-family: var(--font-b);
+  font-size: .82rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: border-color .2s, color .2s, background .2s;
+}
+
+.qty-chip:hover {
+  border-color: rgba(227, 176, 75, .35);
+  color: var(--gold-lt);
+}
+
+.qty-chip.is-active {
+  border-color: var(--gold);
+  background: var(--gold-glow);
+  color: var(--gold);
+}
+
+.qty-note {
+  margin-top: 10px;
+  font-size: .78rem;
+  font-weight: 300;
+  color: rgba(163, 154, 140, .55);
+  transition: color .2s;
+}
+
+.qty-note.is-discounted {
+  color: var(--success);
+}
+
+.bulk-hint {
+  display: none;
+  margin-top: 8px;
+  font-size: .76rem;
+  color: var(--success);
+  align-items: center;
+  gap: 7px;
+}
+
+.bulk-hint.is-visible {
+  display: flex;
+  animation: fadeIn .2s var(--ease-out);
+}
+
+/* ─── RESUMO ───
+   Único bloco com fundo no fluxo: é o "recibo" e precisa se destacar da
+   sequência de campos pra ser lido antes de avançar. */
+.order-summary {
+  display: none;
+  margin-top: 26px;
+  padding: 18px 20px;
+  border: 1px solid rgba(227, 176, 75, .16);
+  border-radius: 18px;
+  background: linear-gradient(160deg, rgba(227, 176, 75, .07) 0%, rgba(227, 176, 75, .015) 100%);
+}
+
+.order-summary.is-visible {
+  display: block;
+  animation: fadeIn .25s var(--ease-out);
+}
+
+.summary-title {
+  font-size: .64rem;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(163, 154, 140, .5);
+  margin-bottom: 13px;
+}
+
+.summary-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  font-size: .85rem;
+  font-weight: 300;
+  color: var(--muted2);
+  margin-bottom: 8px;
+}
+
+.summary-line span:last-child {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Linhas condicionais — o JS liga/desliga via .is-visible. */
+#s-add-row,
+#s-saving-row {
+  display: none;
+}
+
+#s-add-row.is-visible,
+#s-saving-row.is-visible {
+  display: flex;
+}
+
+.summary-line-success {
+  color: var(--success);
+}
+
+.summary-line.total {
+  margin-bottom: 0;
+  margin-top: 13px;
+  padding-top: 13px;
+  border-top: 1px solid var(--hairline-soft);
+  color: var(--white);
+  font-weight: 500;
+  font-size: .95rem;
+}
+
+.summary-line.total span:last-child {
+  font-family: var(--font-d);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -.02em;
+  color: var(--gold);
+}
+
+/* ─── RECAP DO PASSO 2 ───
+   O que foi escolhido no passo 1 continua à vista, com saída de uma volta. */
+.recap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--hairline-soft);
+}
+
+.recap-label {
+  font-size: .64rem;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(163, 154, 140, .45);
+}
+
+.recap-val {
+  flex: 1;
+  min-width: 0;
+  font-size: .88rem;
+  font-weight: 500;
+  color: var(--white);
+}
+
+.recap-edit {
+  background: none;
+  border: none;
+  padding: 4px 2px;
+  color: var(--gold);
+  font-family: var(--font-b);
+  font-size: .8rem;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(227, 176, 75, .35);
+  cursor: pointer;
+  transition: color .2s, text-decoration-color .2s;
+}
+
+.recap-edit:hover {
+  color: var(--gold-lt);
+  text-decoration-color: currentColor;
+}
+
+/* ─── BOTÃO PRINCIPAL ─── */
+.submit-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  min-height: 52px;
+  background: linear-gradient(135deg, var(--gold-lt) 0%, var(--gold) 55%, var(--gold-dk) 140%);
+  color: #17110A;
+  border: none;
+  border-radius: 999px;
+  padding: 15px 26px;
+  font-family: var(--font-d);
+  font-size: .95rem;
+  font-weight: 600;
+  letter-spacing: .01em;
+  cursor: pointer;
+  transition: box-shadow .25s var(--ease-out), transform .25s var(--ease-out), filter .25s;
+  box-shadow: 0 10px 34px rgba(227, 176, 75, .22);
+}
+
+.submit-btn:hover:not(:disabled) {
+  filter: brightness(1.07);
+  box-shadow: 0 16px 46px rgba(227, 176, 75, .34);
+  transform: translateY(-2px);
+}
+
+.submit-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.submit-btn-arrow {
+  transition: transform .25s var(--ease-out);
+}
+
+.submit-btn:hover:not(:disabled) .submit-btn-arrow {
+  transform: translateX(4px);
+}
+
+.submit-btn:disabled {
+  cursor: default;
+  transform: none;
+}
+
+.submit-btn.is-loading .submit-btn-label,
+.submit-btn.is-loading .submit-btn-arrow {
+  opacity: 0;
+}
+
+.submit-spinner {
+  display: none;
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(23, 17, 10, .25);
+  border-top-color: #17110A;
+  border-radius: 50%;
+  animation: fmoSpin .7s linear infinite;
+}
+
+.submit-btn.is-loading .submit-spinner {
+  display: block;
+}
+
+@keyframes fmoSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.submit-note {
+  text-align: center;
+  color: rgba(163, 154, 140, .35);
+  font-size: .72rem;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* ─── VALIDAÇÃO (Zod) ─── */
+.fg > input.field-error,
+.fg > select.field-error,
+.fg > textarea.field-error {
+  border-color: rgba(239, 68, 68, .6);
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, .1);
+}
+
+/* O rádio do plano é invisível: quem sinaliza o erro é o grupo inteiro. */
+.fg[data-field="plano"].has-error .popt {
+  border-color: rgba(239, 68, 68, .35);
+}
+
+.field-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: .74rem;
+  line-height: 1.4;
+  color: #F87171;
+  animation: fadeIn .18s ease;
+}
+
+.field-hint::before {
+  content: '!';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  font-size: .6rem;
+  font-weight: 700;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── RESPONSIVO ─── */
+@media (max-width: 640px) {
+  .fg-row {
+    grid-template-columns: 1fr;
+  }
+
+  /* 16px é o mínimo que o iOS aceita sem dar zoom automático no foco. */
+  .fg > input,
+  .fg > select,
+  .fg > textarea {
+    font-size: 1rem;
+    min-height: 52px;
+  }
+
+  .popt {
+    gap: 12px;
+    padding: 14px 15px;
+  }
+
+  .popt-name {
+    font-size: .95rem;
+  }
+
+  .popt-price em {
+    font-size: 1.05rem;
+  }
+
+  .qty-row {
+    gap: 10px;
+  }
+
+  .qty-chip {
+    min-width: 42px;
+    min-height: 40px;
+  }
+}
+
+/* Larguras muito estreitas: o preço desce pra própria linha em vez de
+   espremer o nome do plano. */
+@media (max-width: 380px) {
+  .popt {
+    grid-template-columns: auto minmax(0, 1fr);
+    row-gap: 8px;
+  }
+
+  .popt-price {
+    grid-column: 2;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 7px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .order-summary.is-visible,
+  .bulk-hint.is-visible,
+  .field-hint {
+    animation: none;
+  }
+
+  .popt::before,
+  .popt-check svg {
+    transition: none;
+  }
+
+  .submit-spinner {
+    animation-duration: 1.4s;
+  }
+}

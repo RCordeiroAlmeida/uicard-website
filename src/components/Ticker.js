@@ -14,6 +14,8 @@ export function initTicker() {
     'Link Exclusivo', 'Zero Papel', 'Conecte em 3 Segundos'
   ];
   const inner = document.getElementById('ticker');
+  if (!inner) return;
+
   const doubled = [...items, ...items];
   inner.innerHTML = doubled.map(i =>
     `<div class="ticker-item"><div class="ticker-dot"></div>${i}</div>`

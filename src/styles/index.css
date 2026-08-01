@@ -1,0 +1,19 @@
+@import './global.css';
+
+/* Uma seção por componente (ver src/components/) — components.css legado
+   foi totalmente migrado e removido. */
+@import './sections/nav.css';
+@import './sections/hero.css';
+@import './sections/ticker.css';
+@import './sections/product.css';
+@import './sections/usage-steps.css';
+@import './sections/order-steps.css';
+@import './sections/features.css';
+@import './sections/pricing.css';
+@import './sections/testimonials.css';
+@import './sections/faq.css';
+@import './sections/cta.css';
+@import './sections/footer.css';
+@import './sections/form-modal.css';
+@import './sections/form-fields.css';
+@import './sections/success-modal.css';

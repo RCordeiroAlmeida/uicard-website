@@ -1,0 +1,91 @@
+/* ─── SUCCESS MODAL ─── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 600;
+  background: rgba(0, 0, 0, .88);
+  backdrop-filter: blur(16px);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-overlay.open {
+  display: flex;
+}
+
+.modal {
+  background: #0B0908;
+  border: 1px solid rgba(227, 176, 75, .18);
+  border-radius: 22px;
+  padding: 52px 44px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 40px 120px rgba(0, 0, 0, .8), 0 0 80px var(--gold-glow-soft);
+}
+
+/* Sem moldura em volta do ícone — só o símbolo e a luz dele. */
+.modal-star {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  margin-bottom: 22px;
+  filter: drop-shadow(0 0 22px rgba(227, 176, 75, .4));
+}
+
+.modal h3 {
+  font-family: var(--font-d);
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -.025em;
+  margin-bottom: 12px;
+}
+
+.modal p {
+  color: var(--muted2);
+  margin-bottom: 24px;
+  font-size: .92rem;
+  font-weight: 300;
+  line-height: 1.75;
+}
+
+.modal-hint {
+  font-size: .78rem;
+  color: var(--muted);
+  margin-bottom: 0;
+}
+
+.order-code {
+  padding: 16px 20px;
+  border-top: 1px solid var(--hairline-soft);
+  border-bottom: 1px solid var(--hairline-soft);
+  font-family: 'Courier New', monospace;
+  font-size: 1.15rem;
+  color: var(--gold);
+  letter-spacing: .18em;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.modal-close {
+  width: 100%;
+  margin-top: 22px;
+  background: var(--gold);
+  color: #17110A;
+  border: none;
+  border-radius: 999px;
+  padding: 15px;
+  font-family: var(--font-d);
+  font-size: .92rem;
+  font-weight: 600;
+  letter-spacing: .01em;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.modal-close:hover {
+  background: var(--gold-lt);
+}

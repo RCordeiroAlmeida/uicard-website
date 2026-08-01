@@ -1,0 +1,71 @@
+/* ─── MARQUEE ───
+   Faixa sem fundo, só entre dois fios de cabelo, com as pontas dissolvidas
+   pra o texto não "bater" nas bordas da tela. */
+.ticker-wrap {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--hairline-soft);
+  border-bottom: 1px solid var(--hairline-soft);
+  padding: 18px 0;
+  background: var(--black);
+}
+
+.ticker-wrap::before,
+.ticker-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 14vw;
+  max-width: 180px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.ticker-wrap::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--black), transparent);
+}
+
+.ticker-wrap::after {
+  right: 0;
+  background: linear-gradient(270deg, var(--black), transparent);
+}
+
+.ticker-inner {
+  display: flex;
+  gap: 0;
+  width: max-content;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ticker-inner {
+    animation: ticker 42s linear infinite;
+  }
+
+  .ticker-inner:hover {
+    animation-play-state: paused;
+  }
+}
+
+.ticker-item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 0 30px;
+  font-size: .72rem;
+  font-weight: 300;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.ticker-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: .6;
+  flex-shrink: 0;
+}

@@ -1,0 +1,106 @@
+/* ─── CTA FINAL ───
+   Fechamento com a mesma luz quente do hero, criando simetria de começo e fim
+   da página. Sem pílula com borda: o rótulo é só texto com um ponto dourado. */
+#cta-final {
+  background: var(--black);
+  padding: 148px 5vw;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+#cta-final::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(52% 56% at 50% 62%, rgba(227, 176, 75, .12) 0%, transparent 68%);
+}
+
+#cta-final > * {
+  position: relative;
+}
+
+.cta-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted2);
+  font-size: .78rem;
+  font-weight: 400;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  margin-bottom: 26px;
+}
+
+.cta-label-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 10px rgba(227, 176, 75, .8);
+}
+
+.cta-title {
+  font-family: var(--font-d);
+  font-size: clamp(2.2rem, 4.6vw, 3.6rem);
+  font-weight: 500;
+  letter-spacing: -.032em;
+  line-height: 1.08;
+  color: var(--white);
+  margin-bottom: 22px;
+}
+
+.cta-sub {
+  color: var(--muted2);
+  font-size: 1.02rem;
+  font-weight: 300;
+  line-height: 1.75;
+  margin: 0 auto 44px;
+  max-width: 500px;
+}
+
+.cta-btns {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.cta-btn-lg {
+  font-size: 1rem;
+}
+
+/* Só o botão sólido cresce em caixa — o fantasma é texto + fio, então ganhar
+   padding horizontal só esticaria o sublinhado pra longe da palavra. */
+.btn-primary.cta-btn-lg {
+  padding: 18px 40px;
+}
+
+.cta-note {
+  color: var(--muted);
+  font-size: .78rem;
+  font-weight: 300;
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+}
+
+@media (max-width: 640px) {
+  #cta-final {
+    padding: 108px 6vw;
+  }
+
+  .cta-btns {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .cta-note {
+    line-height: 1.6;
+    text-align: left;
+  }
+}
