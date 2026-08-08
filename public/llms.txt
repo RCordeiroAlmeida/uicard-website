@@ -1,0 +1,75 @@
+# UICard
+
+> Cartão de visita NFC premium com site digital incluso. Uma aproximação no celular abre o perfil digital de quem apresenta — sem instalar aplicativo, sem digitar nada. Produto brasileiro, pagamento único, sem mensalidade.
+
+O UICard é um cartão físico em PVC de alta densidade com acabamento fosco, do tamanho de um cartão de crédito, com chip NFC embutido e QR Code impresso no verso. Cada cartão acompanha um site/cartão de visita digital hospedado pela UICard, com link próprio no formato `seunome.uicard.com.br`, contendo nome, cargo, foto, redes sociais, portfólio e contato.
+
+Site: https://uicard.com.br/
+
+## Como funciona
+
+1. **Aproxime** — encoste o cartão na parte de trás de qualquer smartphone; o chip NFC ativa sozinho, sem app aberto.
+2. **Conecte** — o celular reconhece o cartão e sugere abrir o perfil, como uma notificação comum de etiqueta NFC.
+3. **Compartilhe** — o site digital abre direto no navegador, pronto para salvar o contato.
+
+Compatibilidade: qualquer Android a partir de 2015 e iPhone 7 ou superior. Celulares sem NFC leem o QR Code do verso, com resultado idêntico.
+
+## Planos e preços
+
+Todos os valores são de **pagamento único**, em reais (BRL). Não há mensalidade nem renovação obrigatória. O site digital e as atualizações de conteúdo estão inclusos em todos os planos.
+
+| Plano | Preço | Cartões | Atualizações do site | Para quem |
+|---|---|---|---|---|
+| Individual | R$ 149 | 1 | até 3 | Profissionais e freelancers |
+| Business | R$ 250 | 1 | até 10 | Empresários e gestores (mais escolhido) |
+| Enterprise | R$ 899 | 10 | ilimitadas | Equipes de até 10 pessoas |
+
+Detalhes por plano:
+
+- **Individual (R$ 149)** — 1 cartão NFC personalizado, site/cartão digital completo, link personalizado, até 3 atualizações no site, QR Code no verso. Sem suporte prioritário.
+- **Business (R$ 250)** — 1 cartão NFC premium, site digital com logo da empresa, link personalizado, até 10 atualizações no site, QR Code no verso, suporte prioritário em 48h.
+- **Enterprise (R$ 899)** — 10 cartões NFC premium, sites digitais individuais, identidade visual unificada, atualizações ilimitadas, gerente de conta dedicado. Dashboard da equipe em desenvolvimento.
+
+### Cartões adicionais
+
+Cartões extras avulsos custam **R$ 89 por unidade**. O preço cai para **R$ 25 por unidade** a partir de 5 adicionais nos planos Individual e Business, ou a partir de 10 adicionais no Enterprise. O desconto é aplicado automaticamente no formulário de pedido.
+
+## O que está incluso
+
+- **Site / cartão digital** — página exclusiva com dados, foto, links e identidade visual; abre em qualquer navegador, sem instalar nada.
+- **Link personalizado** — endereço próprio no formato `seunome.uicard.com.br`, para usar no WhatsApp, e-mail e assinatura.
+- **Atualizações do site** — mudou de cargo, telefone ou empresa? O conteúdo é atualizado e o cartão físico continua o mesmo; o chip NFC sempre abre a versão mais recente. Limite conforme o plano.
+- **Acabamento premium** — impressão UV, acabamento fosco ou metalizado, chip NFC de alta durabilidade e QR Code no verso.
+- **Kit empresarial (Enterprise)** — identidade visual unificada para a equipe, gestão centralizada dos perfis e gerente de conta dedicado.
+- **Análise de acessos** — em desenvolvimento, ainda não disponível.
+
+## Como pedir
+
+1. **Escolha o plano** — Individual, Business ou Enterprise, pelo formulário do site (menos de dois minutos).
+2. **Personalização** — a equipe da UICard cria o layout do cartão impresso e configura o site digital com a identidade visual do cliente.
+3. **Entrega** — o cartão chega pronto para uso, com o chip já programado e o QR Code impresso.
+4. **Uso** — basta aproximar do celular de qualquer pessoa.
+
+**Pagamento:** após o pedido, a equipe entra em contato por WhatsApp para validar os dados e apresentar o layout. O pagamento (Pix, cartão ou boleto) ocorre **somente após a aprovação do design** — não há cobrança antes disso.
+
+**Prazo de entrega:** 7 a 15 dias úteis após a confirmação do pagamento e a aprovação do layout, dependendo da localização. Kits Enterprise podem ter prazos diferenciados informados no atendimento.
+
+**Suporte:** a equipe responde no WhatsApp em até 2 horas nos dias úteis.
+
+## Seções do site
+
+O site é uma página única; cada seção tem uma âncora própria.
+
+- [O produto](https://uicard.com.br/#produto): materiais, chip NFC e site digital incluso
+- [Como funciona](https://uicard.com.br/#como): os três passos do toque ao compartilhamento
+- [Funcionalidades](https://uicard.com.br/#funcionalidades): tudo que acompanha o cartão
+- [Como pedir](https://uicard.com.br/#pedido): as quatro etapas do pedido à entrega
+- [Planos](https://uicard.com.br/#planos): preços, comparativo e desconto por quantidade
+- [Depoimentos](https://uicard.com.br/#prova): relatos de clientes
+- [FAQ](https://uicard.com.br/#faq): dúvidas frequentes sobre pagamento, prazo e compatibilidade
+
+## Observações
+
+- Todos os preços estão em reais brasileiros (BRL) e são cobrados uma única vez.
+- O cartão físico nunca precisa ser reimpresso quando o conteúdo do perfil muda.
+- Não existe aplicativo para instalar, nem para quem apresenta o cartão nem para quem o recebe.

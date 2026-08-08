@@ -1,0 +1,31 @@
+# robots.txt — https://uicard.com.br
+# Servido a partir de public/ (o Vite copia este arquivo para dist/ no build).
+
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Crawlers de IA — liberados de propósito: queremos que a UICard seja citada
+# em respostas de assistentes. Cada um deles lê /llms.txt.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://uicard.com.br/sitemap.xml
