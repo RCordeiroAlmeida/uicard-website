@@ -19,23 +19,17 @@ export function createFooter() {
         <div class="footer-col">
           <h5>Suporte</h5>
           <a href="#faq">FAQ</a>
-          <!-- TODO(real-link): trocar por número de WhatsApp real (wa.me/55...) -->
-          <a href="#">WhatsApp</a>
-          <!-- TODO(real-link): trocar por e-mail de contato real (mailto:) -->
-          <a href="#">E-mail</a>
+          <a href="https://wa.me/5511982652190" target="_blank" rel="noopener noreferrer">WhatsApp</a>
         </div>
         <div class="footer-col">
           <h5>Legal</h5>
-          <!-- TODO(real-link): página de política de privacidade -->
-          <a href="#">Privacidade</a>
-          <!-- TODO(real-link): página de termos de uso -->
-          <a href="#">Termos de uso</a>
-          <!-- TODO(real-link): página de política de entrega -->
-          <a href="#">Política de entrega</a>
+          <a href="/privacidade">Privacidade</a>
+          <a href="/termos">Termos de uso</a>
+          <a href="/entrega">Política de entrega</a>
         </div>
       </div>
       <div class="footer-bottom">
-        <div class="footer-copy">© 2025 UICard. Todos os direitos reservados.</div>
+        <div class="footer-copy">© ${new Date().getFullYear()} UICard. Todos os direitos reservados.</div>
         <div class="footer-badges">
           <div class="f-badge">
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

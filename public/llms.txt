@@ -54,7 +54,17 @@ Cartões extras avulsos custam **R$ 89 por unidade**. O preço cai para **R$ 25 
 
 **Prazo de entrega:** 7 a 15 dias úteis após a confirmação do pagamento e a aprovação do layout, dependendo da localização. Kits Enterprise podem ter prazos diferenciados informados no atendimento.
 
+**Formas de entrega:** envio pelos Correios com rastreamento para todo o Brasil, ou entrega em mãos em local combinado, dentro da região atendida. A modalidade é acordada com o cliente depois que o cartão fica pronto.
+
 **Suporte:** a equipe responde no WhatsApp em até 2 horas nos dias úteis.
+
+## Trocas, devoluções e garantia
+
+- **Arrependimento:** 7 dias corridos a contar do recebimento, sem necessidade de justificativa (art. 49 do Código de Defesa do Consumidor). A personalização do cartão não afasta esse direito. Devolução integral do valor pago, incluindo frete, com o custo do envio de retorno por conta da UICard.
+- **Defeito de fabricação:** 90 dias a contar do recebimento para vícios aparentes (art. 26, II do CDC). Cobre chip NFC não reconhecido, QR Code ilegível, falha de impressão e divergência em relação ao layout aprovado. Não cobre mau uso, perda, furto nem erro em informação que o cliente aprovou no layout.
+- **Reembolso:** até 10 dias úteis do recebimento da devolução, com correção monetária, no mesmo meio de pagamento usado na compra.
+- **Atraso na entrega:** o cliente pode aguardar a nova previsão ou cancelar o pedido com devolução integral (art. 35 do CDC).
+- **Extravio no transporte:** risco da UICard. O cliente escolhe entre reenvio sem custo ou devolução integral.
 
 ## Seções do site
 
@@ -67,6 +77,12 @@ O site é uma página única; cada seção tem uma âncora própria.
 - [Planos](https://uicard.com.br/#planos): preços, comparativo e desconto por quantidade
 - [Depoimentos](https://uicard.com.br/#prova): relatos de clientes
 - [FAQ](https://uicard.com.br/#faq): dúvidas frequentes sobre pagamento, prazo e compatibilidade
+
+## Documentos legais
+
+- [Termos de Uso](https://uicard.com.br/termos): condições de compra, planos, pagamento, direito de arrependimento, garantia e responsabilidades
+- [Política de Privacidade](https://uicard.com.br/privacidade): dados coletados, bases legais da LGPD, compartilhamento, retenção e direitos do titular
+- [Política de Entrega, Troca e Devolução](https://uicard.com.br/entrega): prazos, modalidades de envio, frete, extravio e reembolso
 
 ## Observações
 

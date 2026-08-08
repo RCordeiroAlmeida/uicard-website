@@ -1,0 +1,432 @@
+@import './global.css';
+
+/* ─── PÁGINAS LEGAIS ───
+   Layout de documento: coluna única com largura de leitura curta, hierarquia
+   por tipografia e fios de cabelo — mesma gramática visual da landing, sem
+   nenhum dos efeitos de scroll (estas páginas precisam ser legíveis e
+   imprimíveis, não encenadas). */
+
+.legal-page {
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── TOPO ─── */
+.legal-header {
+  border-bottom: 1px solid var(--border);
+  padding: 22px 5vw;
+  position: sticky;
+  top: 0;
+  z-index: var(--z-nav);
+  background: rgba(5, 4, 3, .82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.legal-header-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.legal-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--gold);
+}
+
+.legal-logo .logo-word {
+  font-family: var(--font-d);
+  font-size: .92rem;
+  font-weight: 500;
+  letter-spacing: .3em;
+  color: var(--gold);
+}
+
+.legal-back {
+  color: var(--muted2);
+  text-decoration: none;
+  font-size: .88rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color .25s;
+}
+
+.legal-back:hover {
+  color: var(--gold-lt);
+}
+
+/* ─── CORPO DO DOCUMENTO ─── */
+.legal-main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 72px 5vw 96px;
+}
+
+.legal-title {
+  font-family: var(--font-d);
+  font-size: clamp(1.9rem, 4.2vw, 2.9rem);
+  font-weight: 500;
+  line-height: 1.14;
+  letter-spacing: -.025em;
+  margin-bottom: 14px;
+}
+
+.legal-meta {
+  color: var(--muted);
+  font-size: .85rem;
+  margin-bottom: 10px;
+}
+
+.legal-lede {
+  color: var(--muted2);
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.75;
+  margin: 22px 0 48px;
+}
+
+/* ─── SUMÁRIO ─── */
+.legal-toc {
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 24px 28px;
+  margin-bottom: 64px;
+  background: var(--surface);
+}
+
+.legal-toc h2 {
+  font-size: .7rem;
+  font-weight: 500;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.legal-toc ol {
+  list-style: none;
+  counter-reset: toc;
+  columns: 2;
+  column-gap: 32px;
+}
+
+.legal-toc li {
+  counter-increment: toc;
+  break-inside: avoid;
+  margin-bottom: 9px;
+}
+
+.legal-toc a {
+  color: var(--muted2);
+  text-decoration: none;
+  font-size: .92rem;
+  transition: color .2s;
+}
+
+.legal-toc a::before {
+  content: counter(toc) '.';
+  color: var(--gold-deep);
+  margin-right: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.legal-toc a:hover {
+  color: var(--gold-lt);
+}
+
+/* ─── SEÇÕES ─── */
+.legal-section {
+  margin-bottom: 56px;
+  scroll-margin-top: 96px;
+}
+
+.legal-section h2 {
+  font-family: var(--font-d);
+  font-size: 1.32rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -.015em;
+  margin-bottom: 18px;
+  padding-top: 26px;
+  border-top: 1px solid var(--hairline-soft);
+}
+
+.legal-section h3 {
+  font-family: var(--font-d);
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--gold-lt);
+  margin: 30px 0 12px;
+}
+
+.legal-section p {
+  color: var(--muted2);
+  margin-bottom: 16px;
+  font-weight: 300;
+  line-height: 1.78;
+}
+
+.legal-section ul,
+.legal-section ol {
+  color: var(--muted2);
+  margin: 0 0 18px 22px;
+  font-weight: 300;
+  line-height: 1.78;
+}
+
+.legal-section li {
+  margin-bottom: 10px;
+}
+
+.legal-section li::marker {
+  color: var(--gold-deep);
+}
+
+.legal-section strong {
+  color: var(--white);
+  font-weight: 600;
+}
+
+.legal-section a {
+  color: var(--gold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(var(--gold-rgb), .4);
+  transition: text-decoration-color .2s;
+}
+
+.legal-section a:hover {
+  text-decoration-color: var(--gold);
+}
+
+/* ─── TABELA ─── */
+.legal-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+}
+
+.legal-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .9rem;
+  min-width: 460px;
+}
+
+.legal-table th,
+.legal-table td {
+  text-align: left;
+  padding: 13px 18px;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted2);
+  font-weight: 300;
+  vertical-align: top;
+}
+
+.legal-table th {
+  color: var(--gold);
+  font-weight: 500;
+  font-size: .74rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  background: var(--surface);
+}
+
+.legal-table tr:last-child td {
+  border-bottom: 0;
+}
+
+/* ─── DESTAQUE ─── */
+.legal-callout {
+  border-left: 2px solid var(--gold);
+  background: var(--gold-glow-soft);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  padding: 20px 24px;
+  margin: 26px 0;
+}
+
+.legal-callout p:last-child {
+  margin-bottom: 0;
+}
+
+/* ─── DADOS DE CONTATO ─── */
+.legal-contact {
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 26px 30px;
+  background: var(--surface);
+}
+
+.legal-contact dl {
+  display: grid;
+  grid-template-columns: minmax(140px, auto) 1fr;
+  gap: 12px 24px;
+}
+
+.legal-contact dt {
+  color: var(--muted);
+  font-size: .8rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding-top: 2px;
+}
+
+.legal-contact dd {
+  color: var(--muted2);
+  font-weight: 300;
+}
+
+/* ─── PLACEHOLDER A PREENCHER ───
+   Deliberadamente gritante: um documento legal publicado com um destes
+   visíveis é pior do que não ter o documento. É pra ser impossível ignorar. */
+.fill {
+  background: var(--gold);
+  color: #17110A;
+  font-family: var(--font-b);
+  font-size: .82em;
+  font-weight: 600;
+  letter-spacing: .02em;
+  padding: 1px 8px;
+  border-radius: 4px;
+  /* Sem `nowrap`: alguns marcadores são longos ("endereço completo com CEP") e
+     estourariam a coluna no mobile em vez de quebrar. */
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* ─── CÓDIGO INLINE ─── */
+.legal-section code {
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: .88em;
+  color: var(--gold-lt);
+  background: var(--raised);
+  border: 1px solid var(--border);
+  padding: 1px 7px;
+  border-radius: 5px;
+  word-break: break-word;
+}
+
+/* ─── RODAPÉ ─── */
+.legal-footer {
+  border-top: 1px solid var(--border);
+  padding: 36px 5vw 56px;
+}
+
+.legal-footer-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.legal-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+}
+
+.legal-footer a {
+  color: var(--muted2);
+  text-decoration: none;
+  font-size: .86rem;
+  transition: color .25s;
+}
+
+.legal-footer a:hover {
+  color: var(--gold-lt);
+}
+
+.legal-footer-copy {
+  color: var(--muted);
+  font-size: .8rem;
+}
+
+/* ─── RESPONSIVO ─── */
+@media (max-width: 720px) {
+  .legal-main {
+    padding: 52px 6vw 72px;
+  }
+
+  .legal-toc {
+    padding: 20px 22px;
+  }
+
+  .legal-toc ol {
+    columns: 1;
+  }
+
+  .legal-contact {
+    padding: 22px;
+  }
+
+  .legal-contact dl {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .legal-contact dd {
+    margin-bottom: 12px;
+  }
+}
+
+/* ─── IMPRESSÃO ───
+   Um documento legal precisa sobreviver ao Ctrl+P: é assim que ele vira
+   anexo de processo ou comprovante arquivado pelo cliente. */
+@media print {
+  .legal-header,
+  .legal-footer,
+  .legal-toc {
+    display: none;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  body::before {
+    display: none;
+  }
+
+  .legal-main {
+    max-width: none;
+    padding: 0;
+  }
+
+  .legal-section p,
+  .legal-section li,
+  .legal-section ul,
+  .legal-section ol,
+  .legal-table th,
+  .legal-table td,
+  .legal-contact dd {
+    color: #000;
+  }
+
+  .legal-section h2,
+  .legal-section h3,
+  .legal-section strong,
+  .legal-title {
+    color: #000;
+  }
+
+  .legal-section a {
+    color: #000;
+  }
+
+  .fill {
+    background: #000;
+    color: #fff;
+  }
+}
